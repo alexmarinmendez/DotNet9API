@@ -1,5 +1,6 @@
 using DotNet9API.Data;
 using DotNet9API.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -27,6 +28,12 @@ app.MapPost("/api/books", async (CreateBookRequest request, BooksContext context
     await context.SaveChangesAsync();
     return TypedResults.Ok();
 }).WithName("CreateBook");
+
+app.MapGet("/api/books/{id:guid}", async (Guid id, BooksContext context) =>
+{
+    var book = await context.Books.FindAsync(id);
+    return TypedResults.Ok(book);
+}).WithName("GetBookById");
 
 app.Run();
 
