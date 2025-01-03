@@ -20,3 +20,5 @@ app.MapPost("/api/books", () =>
 }).WithName("CreateBook");
 
 app.Run();
+
+public record CreateBookRequest(string Title, string Isbn);
