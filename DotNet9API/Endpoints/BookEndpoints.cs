@@ -1,4 +1,5 @@
-﻿using DotNet9API.Data;
+﻿using DotNet9API.Contracts;
+using DotNet9API.Data;
 using DotNet9API.Models;
 using Microsoft.EntityFrameworkCore;
 

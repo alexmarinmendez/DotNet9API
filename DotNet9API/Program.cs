@@ -17,6 +17,3 @@ app.MapScalarApiReference();
 app.MapBookRoutes();
 
 app.Run();
-
-public record CreateBookRequest(string Title, string Isbn);
-public record UpdateBookRequest(string Title);
