@@ -50,6 +50,15 @@ app.MapPut("/api/books/{id:guid}", async (Guid id, UpdateBookRequest request, Bo
     return Results.Ok(book);
 }).WithName("UpdateBook");
 
+app.MapDelete("/api/books/{id:guid}", async (Guid id, BooksContext context) =>
+{
+    var book = await context.Books.FindAsync(id);
+    if (book is null) return Results.NotFound();
+    context.Books.Remove(book);
+    await context.SaveChangesAsync();
+    return Results.NoContent();
+}).WithName("DeleteBook");
+
 app.Run();
 
 public record CreateBookRequest(string Title, string Isbn);
