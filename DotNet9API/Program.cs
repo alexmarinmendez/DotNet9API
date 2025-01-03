@@ -44,3 +44,4 @@ app.MapGet("/api/books", async (BooksContext context) =>
 app.Run();
 
 public record CreateBookRequest(string Title, string Isbn);
+public record UpdateBookRequest(string Title);
