@@ -1,4 +1,5 @@
 using DotNet9API.Data;
+using DotNet9API.Models;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -14,9 +15,17 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.MapPost("/api/books", () =>
+app.MapPost("/api/books", async (CreateBookRequest request, BooksContext context) =>
 {
-
+    var newBook = new Book()
+    {
+        Id = Guid.CreateVersion7(),
+        Title = request.Title,
+        Isbn = request.Isbn,
+    };
+    context.Books.Add(newBook);
+    await context.SaveChangesAsync();
+    return TypedResults.Ok();
 }).WithName("CreateBook");
 
 app.Run();
