@@ -14,4 +14,9 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
+app.MapPost("/api/books", () =>
+{
+
+}).WithName("CreateBook");
+
 app.Run();
