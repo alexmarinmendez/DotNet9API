@@ -1,4 +1,5 @@
 using DotNet9API.Data;
+using DotNet9API.Endpoints;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -13,6 +14,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.MapOpenApi();
 app.MapScalarApiReference();
+app.MapBookRoutes();
 
 app.Run();
 
