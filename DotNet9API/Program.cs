@@ -41,6 +41,15 @@ app.MapGet("/api/books", async (BooksContext context) =>
     return Results.Ok(books);
 }).WithName("GetBooks");
 
+app.MapPut("/api/books/{id:guid}", async (Guid id, UpdateBookRequest request, BooksContext context) =>
+{
+    var book = await context.Books.FindAsync(id);
+    if (book is null) return Results.NotFound();
+    book.Title = request.Title;
+    await context.SaveChangesAsync();
+    return Results.Ok(book);
+}).WithName("UpdateBook");
+
 app.Run();
 
 public record CreateBookRequest(string Title, string Isbn);
