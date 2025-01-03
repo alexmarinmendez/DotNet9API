@@ -35,6 +35,12 @@ app.MapGet("/api/books/{id:guid}", async (Guid id, BooksContext context) =>
     return book is not null ? Results.Ok(book) : Results.NotFound();
 }).WithName("GetBookById");
 
+app.MapGet("/api/books", async (BooksContext context) =>
+{
+    var books = await context.Books.ToListAsync();
+    return Results.Ok(books);
+}).WithName("GetBooks");
+
 app.Run();
 
 public record CreateBookRequest(string Title, string Isbn);
