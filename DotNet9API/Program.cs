@@ -26,7 +26,7 @@ app.MapPost("/api/books", async (CreateBookRequest request, BooksContext context
     };
     context.Books.Add(newBook);
     await context.SaveChangesAsync();
-    return TypedResults.Ok();
+    return Results.CreatedAtRoute("GetBookById", new { newBook.Id }, newBook);
 }).WithName("CreateBook");
 
 app.MapGet("/api/books/{id:guid}", async (Guid id, BooksContext context) =>
