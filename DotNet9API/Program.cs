@@ -32,7 +32,7 @@ app.MapPost("/api/books", async (CreateBookRequest request, BooksContext context
 app.MapGet("/api/books/{id:guid}", async (Guid id, BooksContext context) =>
 {
     var book = await context.Books.FindAsync(id);
-    return TypedResults.Ok(book);
+    return book is not null ? Results.Ok(book) : Results.NotFound();
 }).WithName("GetBookById");
 
 app.Run();
